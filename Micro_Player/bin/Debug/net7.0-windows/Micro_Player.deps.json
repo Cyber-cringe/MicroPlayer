@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "Micro_Player/1.0.0": {
+        "runtime": {
+          "Micro_Player.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Micro_Player/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
