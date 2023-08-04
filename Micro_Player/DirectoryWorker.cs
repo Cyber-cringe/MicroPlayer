@@ -11,7 +11,7 @@ namespace Micro_Player
         public string? GetDirName(string path)
         {
             if(!Directory.Exists(path)) return null;
-            string? name = Path.GetFileName(Path.GetDirectoryName(path));
+            string? name = Path.GetFileName(path);
             return name;
         }
 

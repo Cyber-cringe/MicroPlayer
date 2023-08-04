@@ -28,23 +28,46 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
+            slotBox1 = new SlotBox();
+            slotBox2 = new SlotBox();
+            SuspendLayout();
+            // 
+            // slotBox1
+            // 
+            slotBox1.AutoScroll = true;
+            slotBox1.BackColor = SystemColors.ButtonFace;
+            slotBox1.Location = new Point(12, 12);
+            slotBox1.Name = "slotBox1";
+            slotBox1.Size = new Size(776, 107);
+            slotBox1.TabIndex = 0;
+            // 
+            // slotBox2
+            // 
+            slotBox2.AutoScroll = true;
+            slotBox2.BackColor = SystemColors.ButtonFace;
+            slotBox2.Location = new Point(12, 125);
+            slotBox2.Name = "slotBox2";
+            slotBox2.Size = new Size(776, 313);
+            slotBox2.TabIndex = 1;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Name = "Form1";
-            this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(slotBox2);
+            Controls.Add(slotBox1);
+            Name = "Form1";
+            Text = "Form1";
+            Load += Form1_Load;
+            ResumeLayout(false);
         }
 
         #endregion
 
         private Slot slot1;
         private Slot slot2;
+        private SlotBox slotBox1;
+        private SlotBox slotBox2;
     }
 }

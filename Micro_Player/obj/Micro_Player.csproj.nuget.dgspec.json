@@ -1,32 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Репозитории\\Micro player\\Micro_Player\\Micro_Player.csproj": {}
+    "C:\\Users\\artem\\OneDrive\\Рабочий стол\\MicroPlayer\\Micro_Player\\Micro_Player.csproj": {}
   },
   "projects": {
-    "D:\\Репозитории\\Micro player\\Micro_Player\\Micro_Player.csproj": {
+    "C:\\Users\\artem\\OneDrive\\Рабочий стол\\MicroPlayer\\Micro_Player\\Micro_Player.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Репозитории\\Micro player\\Micro_Player\\Micro_Player.csproj",
+        "projectUniqueName": "C:\\Users\\artem\\OneDrive\\Рабочий стол\\MicroPlayer\\Micro_Player\\Micro_Player.csproj",
         "projectName": "Micro_Player",
-        "projectPath": "D:\\Репозитории\\Micro player\\Micro_Player\\Micro_Player.csproj",
-        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "D:\\Репозитории\\Micro player\\Micro_Player\\obj\\",
+        "projectPath": "C:\\Users\\artem\\OneDrive\\Рабочий стол\\MicroPlayer\\Micro_Player\\Micro_Player.csproj",
+        "packagesPath": "C:\\Users\\artem\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\artem\\OneDrive\\Рабочий стол\\MicroPlayer\\Micro_Player\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\artem\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net7.0-windows"
+          "net6.0-windows"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net7.0-windows7.0": {
-            "targetAlias": "net7.0-windows",
+          "net6.0-windows7.0": {
+            "targetAlias": "net6.0-windows",
             "projectReferences": {}
           }
         },
@@ -37,8 +37,8 @@
         }
       },
       "frameworks": {
-        "net7.0-windows7.0": {
-          "targetAlias": "net7.0-windows",
+        "net6.0-windows7.0": {
+          "targetAlias": "net6.0-windows",
           "imports": [
             "net461",
             "net462",
@@ -58,7 +58,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
         }
       }
     }

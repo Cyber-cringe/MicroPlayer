@@ -36,6 +36,7 @@ namespace Micro_Player
 
         private void InitializeComponent()
         {
+
             this.nameLabel = new System.Windows.Forms.Label();
             this.activateSlotButton = new System.Windows.Forms.Button();
             this.deleteSlotButton = new System.Windows.Forms.Button();
