@@ -39,8 +39,8 @@ namespace Micro_Player
         public void SetData(string[] slotBoxElements)
         {
             if (slotBoxElements == null) return;
-            slotList = new List<Slot>(slotBoxElements.Length);
             ClearAll();
+            slotList = new List<Slot>(slotBoxElements.Length);
             foreach (string element in slotBoxElements)
             {
                 Slot slot = new Slot(element);
@@ -53,7 +53,7 @@ namespace Micro_Player
         public void ShowSlots(int XDistance = 10, int YDistance = 10, bool horisontal = false)
         {
             if (slotList == null) return;
-
+            this.Controls.Clear();
             if (horisontal)
                 ArrangeSlotsHorizontally(XDistance, YDistance);
             else

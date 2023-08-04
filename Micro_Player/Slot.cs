@@ -31,7 +31,7 @@ namespace Micro_Player
 
             this.path = path;
             name = GetName(path) ?? path;
-            nameLabel!.Text = name;
+            nameLabel.Text = name;
         }
 
         private void InitializeComponent()
@@ -95,11 +95,12 @@ namespace Micro_Player
                 string? fileName = fileWorker.GetFileName(path);
                 return fileName;
             }
-            else if (Directory.Exists(path))
+            if (Directory.Exists(path))
             {
                 string? directoryName = directoryWorker.GetDirName(path);
                 return directoryName;
             }
+             
             return null;
         }
 
