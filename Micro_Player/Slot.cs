@@ -20,7 +20,6 @@ namespace Micro_Player
         public Button DeleteSlotButton { get => deleteSlotButton; }
         public Label NameLabel { get => nameLabel; }
 
-
         public event EventHandler? slotSwitched;//события нажатия кнопки активации
         public event EventHandler? slotDeleted;//событие нажатия кнопки удаления
 
@@ -41,17 +40,16 @@ namespace Micro_Player
             this.activateSlotButton = new System.Windows.Forms.Button();
             this.deleteSlotButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // nameLabel
-            // 
+
+            #region nameLabel
             this.nameLabel.AutoSize = true;
             this.nameLabel.Name = "nameLabel";
             this.nameLabel.Size = new System.Drawing.Size(35, 20);
             this.nameLabel.TabIndex = 0;
             this.nameLabel.Text = "Slot";
-            // 
-            // activateSlotButton
-            // 
+            #endregion
+
+            #region activateSlotButton
             this.activateSlotButton.BackColor = System.Drawing.Color.Black;
             this.activateSlotButton.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.activateSlotButton.Name = "activateSlotButton";
@@ -59,9 +57,9 @@ namespace Micro_Player
             this.activateSlotButton.TabIndex = 0;
             this.activateSlotButton.UseVisualStyleBackColor = false;
             this.activateSlotButton.Click += new System.EventHandler(this.activateSlotButton_Click);
-            // 
-            // deleteSlotButton
-            // 
+            #endregion
+
+            #region deleteSlotButton
             this.deleteSlotButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.deleteSlotButton.BackColor = System.Drawing.Color.Black;
             this.deleteSlotButton.ForeColor = System.Drawing.SystemColors.ControlDark;
@@ -70,23 +68,23 @@ namespace Micro_Player
             this.deleteSlotButton.TabIndex = 0;
             this.deleteSlotButton.UseVisualStyleBackColor = false;
             this.deleteSlotButton.Click += new System.EventHandler(this.deleteSlotButton_Click);
-            // 
-            // Slot
-            // 
+            #endregion
+
+            #region Slot
             this.BackColor = System.Drawing.Color.LightGray;
             this.Controls.Add(this.nameLabel);
             this.Controls.Add(this.activateSlotButton);
             this.Controls.Add(this.deleteSlotButton);
-            this.Size = new System.Drawing.Size(350, 50);
+            this.Size = new System.Drawing.Size(400, 60);
             this.ResumeLayout(false);
             this.PerformLayout();
-
+            #endregion
         }
 
         private void activateSlotButton_Click(object sender, EventArgs e) => slotSwitched?.Invoke(this, new EventArgs());
 
         private void deleteSlotButton_Click(object sender, EventArgs e) => slotDeleted?.Invoke(this, new EventArgs());
-
+        
         public void MoveSlot(int distance) => this.Left += distance;
 
         private string? GetName(string path)
@@ -107,7 +105,7 @@ namespace Micro_Player
         private void SetStartPosition()
         {
             activateSlotButton.Location = new Point(10, 10);
-            deleteSlotButton.Location = new Point(305, 10);
+            deleteSlotButton.Location = new Point(355, 10);
             nameLabel.Location = new Point(70, 10);
         }
 

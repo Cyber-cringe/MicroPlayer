@@ -15,6 +15,7 @@ namespace Micro_Player
         public Slot? selectedSlot { get; private set; }
         public event EventHandler<SlotBoxEventArgs>? SelectedSlotChanged; //событие активации любого слота из списка
         public event EventHandler<SlotBoxEventArgs>? DeletedSlotSelected; //событие удаление любого слота из списка
+        public event EventHandler<SlotBoxEventArgs>? MusicScrolled; //событие перемотки музыки
 
         public SlotBox()
         {
