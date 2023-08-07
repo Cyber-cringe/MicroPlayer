@@ -33,6 +33,7 @@ namespace Micro_Player
             name = GetName(path) ?? path;
             nameLabel!.Text = name;
         }
+        //~Slot() { MessageBox.Show("уничтожен"); }
 
         private void InitializeComponent()
         {

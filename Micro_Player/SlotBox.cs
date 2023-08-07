@@ -8,11 +8,21 @@ namespace Micro_Player
 {
     public class SlotBox:Panel
     {
-        private System.ComponentModel.IContainer components;
+        //private System.ComponentModel.IContainer components;
 
         //Поля
         private List<Slot>? slotList;
-        public Slot? selectedSlot { get; private set; }
+        private Slot? selectedSlot;
+        public Slot? SelectedSlot
+        {
+            get => selectedSlot;
+            set
+            {
+                if (slotList == null || value == null) return;
+                if (slotList.Contains(value))
+                    selectedSlot = value;
+            }
+        }
         public event EventHandler<SlotBoxEventArgs>? SelectedSlotChanged; //событие активации любого слота из списка
         public event EventHandler<SlotBoxEventArgs>? DeletedSlotSelected; //событие удаление любого слота из списка
 
@@ -39,8 +49,8 @@ namespace Micro_Player
         public void SetData(string[] slotBoxElements)
         {
             if (slotBoxElements == null) return;
-            slotList = new List<Slot>(slotBoxElements.Length);
             ClearAll();
+            slotList = new List<Slot>(slotBoxElements.Length);
             foreach (string element in slotBoxElements)
             {
                 Slot slot = new Slot(element);
@@ -90,8 +100,14 @@ namespace Micro_Player
             }
         }
 
-        //-----ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ-----
+        public Slot? FindSlot(Predicate<Slot> pred)
+        {
+            if (slotList == null) return null;
+            Slot? slot =  slotList.Find(pred);
+            return slot;
+        }
 
+        //-----ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ-----
         //если нажата кнопка "активировать" на любом из слотов
         private void SlotSwitchedHandler(object? sender, EventArgs e)
         {
@@ -123,7 +139,7 @@ namespace Micro_Player
             for (int i = 0; i < slotList.Count; i++)
             {
                 int XPosition = XDistance;
-                int YPosition = (slotList[i].Height + YDistance) * i;
+                int YPosition = (slotList[i].Height + YDistance) * i + YDistance;
                 slotList[i].Location = new Point(XPosition, YPosition);
                 this.Controls.Add(slotList[i]);
             }
@@ -135,7 +151,7 @@ namespace Micro_Player
             if (slotList == null) return;
             for (int i = 0; i < slotList.Count; i++)
             {
-                int XPosition = (slotList[i].Width + XDistance) * i;
+                int XPosition = (slotList[i].Width + XDistance) * i + XDistance;
                 int YPosition = YDistance;
                 slotList[i].Location = new Point(XPosition, YPosition);
                 this.Controls.Add(slotList[i]);
@@ -143,18 +159,18 @@ namespace Micro_Player
         }
 
         //получаем индекс следущего, после переданнрго в метод слота
-        private int? GetNextIndex(Slot currentSlot)
+        private int? GetNextIndex(Slot? currentSlot)
         {
-            if (slotList == null) return null;
+            if (slotList == null || currentSlot == null) return null;
             int? curentIndex = slotList.IndexOf(currentSlot);
             if (curentIndex == null || curentIndex == slotList.Count - 1) return null;
             return curentIndex.Value + 1;
         }
 
         //получаем индекс предыдущего, после переданнрго в метод слота
-        private int? GetPreviousIndex(Slot currentSlot)
+        private int? GetPreviousIndex(Slot? currentSlot)
         {
-            if (slotList == null) return null;
+            if (slotList == null || currentSlot == null) return null;
             int? curentIndex = slotList.IndexOf(currentSlot);
             if (curentIndex == null || curentIndex == 0) return null;
             return curentIndex.Value - 1;

@@ -8,19 +8,19 @@
     "net6.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\artem\\.nuget\\packages\\": {}
+    "C:\\Users\\HP\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\artem\\OneDrive\\Рабочий стол\\MicroPlayer\\Micro_Player\\Micro_Player.csproj",
+      "projectUniqueName": "D:\\Репозитории\\Micro player\\Micro_Player\\Micro_Player.csproj",
       "projectName": "Micro_Player",
-      "projectPath": "C:\\Users\\artem\\OneDrive\\Рабочий стол\\MicroPlayer\\Micro_Player\\Micro_Player.csproj",
-      "packagesPath": "C:\\Users\\artem\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\artem\\OneDrive\\Рабочий стол\\MicroPlayer\\Micro_Player\\obj\\",
+      "projectPath": "D:\\Репозитории\\Micro player\\Micro_Player\\Micro_Player.csproj",
+      "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
+      "outputPath": "D:\\Репозитории\\Micro player\\Micro_Player\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\artem\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -64,7 +64,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }
