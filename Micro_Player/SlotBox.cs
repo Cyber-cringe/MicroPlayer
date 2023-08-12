@@ -18,13 +18,17 @@ namespace Micro_Player
             get => selectedSlot;
             set
             {
-                if (slotList == null || value == null) return;
-                if (slotList.Contains(value))
+                if(value == null)
+                    selectedSlot = null;
+                else if (slotList != null && slotList.Contains(value))
                     selectedSlot = value;
             }
         }
+
         public event EventHandler<SlotBoxEventArgs>? SelectedSlotChanged; //событие активации любого слота из списка
         public event EventHandler<SlotBoxEventArgs>? DeletedSlotSelected; //событие удаление любого слота из списка
+        public event EventHandler<SlotBoxEventArgs>? AdditionalActionInvoke; //событие удаление любого слота из списка
+
 
         public SlotBox()
         {
@@ -48,13 +52,14 @@ namespace Micro_Player
         //Добавление в список слотов с соответствующими пазами
         public void SetData(string[] slotBoxElements)
         {
-            if (slotBoxElements == null) return;
             ClearAll();
+            if (slotBoxElements == null) return;
             slotList = new List<Slot>(slotBoxElements.Length);
             foreach (string element in slotBoxElements)
             {
                 Slot slot = new Slot(element);
                 slotList.Add(slot);
+
                 Subscribe(slot);
             }
         }
@@ -107,6 +112,14 @@ namespace Micro_Player
             return slot;
         }
 
+        //смена активного слота без вызова события
+        public void FindAndSetNewSelectedSlot(Predicate<Slot> pred)
+        {
+            Slot? newSelectedSlot = FindSlot(pred);
+            if (newSelectedSlot == null) return;
+            selectedSlot = newSelectedSlot;
+        }
+
         //-----ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ-----
         //если нажата кнопка "активировать" на любом из слотов
         private void SlotSwitchedHandler(object? sender, EventArgs e)
@@ -125,11 +138,19 @@ namespace Micro_Player
                 DeletedSlotSelected?.Invoke(this, new SlotBoxEventArgs(slotForDeletion));
         }
 
+        //если нажата кнопка дополнительного действия на любом из слотов
+        private void AdditionalActionInvokeHandler(object? sender, EventArgs e)
+        {
+            if (sender is Slot AdditionalActionSlot)
+                AdditionalActionInvoke?.Invoke(this, new SlotBoxEventArgs(AdditionalActionSlot));
+        }
+
         //Подписываем методы на соответствующие события слота
         private void Subscribe(Slot slot)
         {
             slot.slotSwitched += SlotSwitchedHandler;
             slot.slotDeleted += SlotDeletedHandler;
+            slot.additionalAction += AdditionalActionInvokeHandler;
         }
 
         //метод для вертикального размещения слотов
@@ -141,8 +162,8 @@ namespace Micro_Player
                 int XPosition = XDistance;
                 int YPosition = (slotList[i].Height + YDistance) * i + YDistance;
                 slotList[i].Location = new Point(XPosition, YPosition);
-                this.Controls.Add(slotList[i]);
             }
+            Controls.AddRange(slotList.ToArray());
         }
 
         //метод для горизонтального размещения слотов
@@ -154,8 +175,8 @@ namespace Micro_Player
                 int XPosition = (slotList[i].Width + XDistance) * i + XDistance;
                 int YPosition = YDistance;
                 slotList[i].Location = new Point(XPosition, YPosition);
-                this.Controls.Add(slotList[i]);
             }
+            Controls.AddRange(slotList.ToArray());
         }
 
         //получаем индекс следущего, после переданнрго в метод слота
@@ -176,10 +197,15 @@ namespace Micro_Player
             return curentIndex.Value - 1;
         }
 
-        private void ClearAll()
+        public void ClearAll()
         {
-            this.Controls.Clear();
-            selectedSlot= null;
+            if (slotList == null) return;
+            selectedSlot = null;
+            foreach(var slot in slotList)
+            {
+                this.Controls.Remove(slot);
+                slot.Dispose();
+            }
         }
 
     }

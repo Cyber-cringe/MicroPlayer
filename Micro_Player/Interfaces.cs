@@ -26,7 +26,10 @@ namespace Micro_Player
     {
         string? GetDirName(string path);
         string[]? GetAllFiles(string path, string type);
+        //полные имена директорий
         string[]? GetAllDirs(string path, string type);
+        //названия директорий
+        string[]? GetDirNames(string[] files);
     }
 
 }

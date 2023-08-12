@@ -12,35 +12,38 @@ namespace Micro_Player
         private Button activateSlotButton;
         private Button deleteSlotButton;
         private Label nameLabel;
+        private Button additionalActionButton;
         private FileWorker fileWorker = new FileWorker();
         private DirectoryWorker directoryWorker = new DirectoryWorker();
+
         public string? path { get; private set; }
         public string? name { get; private set; }
         public Button ActivateSlotButton { get => activateSlotButton; }
         public Button DeleteSlotButton { get => deleteSlotButton; }
+        public Button AdditionalActionButton { get => additionalActionButton; }
         public Label NameLabel { get => nameLabel; }
-
 
         public event EventHandler? slotSwitched;//события нажатия кнопки активации
         public event EventHandler? slotDeleted;//событие нажатия кнопки удаления
+        public event EventHandler? additionalAction;//событие нажатия на кнопку дополнительного действия
 
-        public Slot(string path)
+        public Slot(string? path)
         {
             InitializeComponent();
             SetStartPosition();
 
-            this.path = path;
-            name = GetName(path) ?? path;
+            this.path = path ?? "";
+            name = GetName(this.path) ?? this.path;
             nameLabel!.Text = name;
         }
         //~Slot() { MessageBox.Show("уничтожен"); }
 
         private void InitializeComponent()
         {
-
             this.nameLabel = new System.Windows.Forms.Label();
             this.activateSlotButton = new System.Windows.Forms.Button();
             this.deleteSlotButton = new System.Windows.Forms.Button();
+            this.additionalActionButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // nameLabel
@@ -72,12 +75,22 @@ namespace Micro_Player
             this.deleteSlotButton.UseVisualStyleBackColor = false;
             this.deleteSlotButton.Click += new System.EventHandler(this.deleteSlotButton_Click);
             // 
+            // additionalActionButton
+            // 
+            this.additionalActionButton.Name = "additionalActionButton";
+            this.additionalActionButton.Size = new System.Drawing.Size(75, 23);
+            this.additionalActionButton.TabIndex = 0;
+            this.additionalActionButton.UseVisualStyleBackColor = true;
+            this.additionalActionButton.Visible = false;
+            this.additionalActionButton.Click += new System.EventHandler(this.additionalActionButton_Click);
+            // 
             // Slot
             // 
             this.BackColor = System.Drawing.Color.LightGray;
             this.Controls.Add(this.nameLabel);
             this.Controls.Add(this.activateSlotButton);
             this.Controls.Add(this.deleteSlotButton);
+            this.Controls.Add(this.additionalActionButton);
             this.Size = new System.Drawing.Size(350, 50);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -87,6 +100,8 @@ namespace Micro_Player
         private void activateSlotButton_Click(object sender, EventArgs e) => slotSwitched?.Invoke(this, new EventArgs());
 
         private void deleteSlotButton_Click(object sender, EventArgs e) => slotDeleted?.Invoke(this, new EventArgs());
+
+        private void additionalActionButton_Click(object sender, EventArgs e) => additionalAction?.Invoke(this, new EventArgs());
 
         public void MoveSlot(int distance) => this.Left += distance;
 
@@ -111,6 +126,7 @@ namespace Micro_Player
             deleteSlotButton.Location = new Point(305, 10);
             nameLabel.Location = new Point(70, 10);
         }
+
 
     }
 }
