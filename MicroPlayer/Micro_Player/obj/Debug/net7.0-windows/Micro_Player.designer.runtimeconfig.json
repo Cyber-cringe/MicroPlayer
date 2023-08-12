@@ -1,0 +1,12 @@
+{
+  "runtimeOptions": {
+    "tfm": "net7.0",
+    "additionalProbingPaths": [
+      "C:\\Users\\artem\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\artem\\.nuget\\packages"
+    ],
+    "configProperties": {
+      "Microsoft.NETCore.DotNetHostPolicy.SetAppPaths": true
+    }
+  }
+}
