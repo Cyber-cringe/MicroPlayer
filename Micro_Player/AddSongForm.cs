@@ -14,13 +14,13 @@ namespace Micro_Player
     {
         private MainForm mainForm;
         private string[]? playlists;
-        private string song;
-        public AddSongForm(MainForm mainForm, string[]? playlists, string song)
+        private string songPath;
+        public AddSongForm(MainForm mainForm, string[]? playlists, string songPath)
         {
             InitializeComponent();
             this.mainForm = mainForm;
             this.playlists = playlists;
-            this.song = song;
+            this.songPath = songPath;
         }
         //~AddSongForm() => MessageBox.Show("Destricted");
 
@@ -38,7 +38,7 @@ namespace Micro_Player
                 MessageBox.Show("Выберите плейлист, чтобы добавить музыку.");
                 return;
             }
-            mainForm.AddSoundInPlaylist(selectedPlaylist, song);
+            mainForm.AddSoundToPlaylist(selectedPlaylist, songPath);
             Close();
         }
     }

@@ -18,27 +18,28 @@ namespace Micro_Player
         private void MainForm_Load(object sender, EventArgs e)
         {
             CreateDirs();
+            ShowAllMusic();
             ShowPlaylists();
             currentPlaylistName.Text = "¬с€ музыка";
-            ShowMusic(musicDir);
             //подписываемс€ на событи€ смены слота в слотбоксах
             musicBox.SelectedSlotChanged += MusicBoxSelectedSlotChangedEventHandler;
-            musicBox.AdditionalActionInvoke+= MusicBoxAdditionalActionInvokeEventHandler;
-            musicBox.DeletedSlotSelected += (sender, e) => MessageBox.Show("удаление");
+            musicBox.AdditionalActionInvoke += MusicBoxAdditionalActionInvokeEventHandler;
+            musicBox.DeletedSlotSelected += MusicBoxDeletedSlotSelectedEventHandler;
             playlistsBox.SelectedSlotChanged += PlayListsBoxSelectedSlotChangedEventHandler;
+            playlistsBox.DeletedSlotSelected += PlaylistsBoxDeletedSlotSelectedEventHandler;
             //подписываемс€ на событи€ плеера
-            player.CurrentItemChange += MediaChangeEventHandler;
-            player.StatusChange += () => ChangePlayButtonState(currentSlot?.ActivateSlotButton);
+            player.CurrentItemChange += CurrentSongChangeEventHandler;
+            player.StatusChange += () => ChangePlayButtonState(currentSongSlot?.ActivateSlotButton);
         }
 
         //возврат в папку с музыкой
         private void backToRootDirButton_Click(object sender, EventArgs e)
         {
-            if(currentPlaylist == null) return;
-            ShowMusic(musicDir);
+            if(currentPlaylistSlot == null) return;
+            ShowAllMusic();
             currentPlaylistName.Text = "¬с€ музыка";
             addSongButton.Enabled = true;
-            currentPlaylist = null;
+            currentPlaylistSlot = null;
         }
 
         //добавление нового трека
@@ -56,7 +57,7 @@ namespace Micro_Player
                 return;
             }
             File.Copy(fullFileName, newFullFileName);
-            ShowMusic();
+            ShowAllMusic();
         }
 
         //провер€ем факт остановки плеера (завершени€ трека)
@@ -65,8 +66,8 @@ namespace Micro_Player
             if (player.playState == WMPPlayState.wmppsStopped)
             {
                 playerStoppedCheckerTimer.Stop();
-                if (currentSlot != null)
-                    SetPauseText(currentSlot.ActivateSlotButton);
+                if (currentSongSlot != null)
+                    SetPauseText(currentSongSlot.ActivateSlotButton);
                 musicBox.ActivateNextSlot();
             }
         }
@@ -93,6 +94,10 @@ namespace Micro_Player
             createPlaylistForm.ShowDialog();
         }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
+            //GC.Collect();
+        }
     }
 
 }

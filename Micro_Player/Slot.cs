@@ -16,8 +16,8 @@ namespace Micro_Player
         private FileWorker fileWorker = new FileWorker();
         private DirectoryWorker directoryWorker = new DirectoryWorker();
 
-        public string? path { get; private set; }
-        public string? name { get; private set; }
+        public string path { get; private set; }
+        public string name { get; private set; }
         public Button ActivateSlotButton { get => activateSlotButton; }
         public Button DeleteSlotButton { get => deleteSlotButton; }
         public Button AdditionalActionButton { get => additionalActionButton; }
@@ -36,7 +36,7 @@ namespace Micro_Player
             name = GetName(this.path) ?? this.path;
             nameLabel!.Text = name;
         }
-        //~Slot() { MessageBox.Show("уничтожен"); }
+        ~Slot() { MessageBox.Show("уничтожен"); }
 
         private void InitializeComponent()
         {
@@ -78,10 +78,9 @@ namespace Micro_Player
             // additionalActionButton
             // 
             this.additionalActionButton.Name = "additionalActionButton";
-            this.additionalActionButton.Size = new System.Drawing.Size(75, 23);
+            this.additionalActionButton.Size = new System.Drawing.Size(35, 35);
             this.additionalActionButton.TabIndex = 0;
             this.additionalActionButton.UseVisualStyleBackColor = true;
-            this.additionalActionButton.Visible = false;
             this.additionalActionButton.Click += new System.EventHandler(this.additionalActionButton_Click);
             // 
             // Slot
@@ -91,7 +90,7 @@ namespace Micro_Player
             this.Controls.Add(this.activateSlotButton);
             this.Controls.Add(this.deleteSlotButton);
             this.Controls.Add(this.additionalActionButton);
-            this.Size = new System.Drawing.Size(350, 50);
+            this.Size = new System.Drawing.Size(370, 50);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -123,7 +122,8 @@ namespace Micro_Player
         private void SetStartPosition()
         {
             activateSlotButton.Location = new Point(10, 10);
-            deleteSlotButton.Location = new Point(305, 10);
+            deleteSlotButton.Location = new Point(350, 10);
+            additionalActionButton.Location = new Point(305, 10);
             nameLabel.Location = new Point(70, 10);
         }
 

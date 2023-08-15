@@ -35,12 +35,15 @@
             // 
             // playlistslistBox
             // 
+            this.playlistslistBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.playlistslistBox.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.playlistslistBox.FormattingEnabled = true;
             this.playlistslistBox.ItemHeight = 25;
             this.playlistslistBox.Location = new System.Drawing.Point(10, 37);
             this.playlistslistBox.Name = "playlistslistBox";
-            this.playlistslistBox.Size = new System.Drawing.Size(300, 179);
+            this.playlistslistBox.Size = new System.Drawing.Size(335, 204);
             this.playlistslistBox.TabIndex = 0;
             // 
             // label1
@@ -54,9 +57,11 @@
             // 
             // confirmAdditionButton
             // 
-            this.confirmAdditionButton.Location = new System.Drawing.Point(12, 267);
+            this.confirmAdditionButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.confirmAdditionButton.Location = new System.Drawing.Point(12, 262);
             this.confirmAdditionButton.Name = "confirmAdditionButton";
-            this.confirmAdditionButton.Size = new System.Drawing.Size(298, 29);
+            this.confirmAdditionButton.Size = new System.Drawing.Size(333, 29);
             this.confirmAdditionButton.TabIndex = 2;
             this.confirmAdditionButton.Text = "Добавить в плейлист";
             this.confirmAdditionButton.UseVisualStyleBackColor = true;
@@ -66,10 +71,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(322, 308);
+            this.ClientSize = new System.Drawing.Size(357, 303);
             this.Controls.Add(this.confirmAdditionButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.playlistslistBox);
+            this.MinimumSize = new System.Drawing.Size(300, 200);
             this.Name = "AddSongForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Добавить музыку";

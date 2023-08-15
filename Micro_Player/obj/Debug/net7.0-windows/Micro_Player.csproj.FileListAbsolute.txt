@@ -66,3 +66,6 @@ D:\Репозитории\Micro player\Micro_Player\obj\Debug\net7.0-windows\ref
 D:\Репозитории\Micro player\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.MainForm.resources
 D:\Репозитории\Micro player\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.CreatePlaylistForm.resources
 D:\Репозитории\Micro player\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.AddSongForm.resources
+D:\Репозитории\Micro player\Micro_Player\bin\Debug\net7.0-windows\taglib-sharp.dll
+D:\Репозитории\Micro player\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.csproj.CopyComplete
+D:\Репозитории\Micro player\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.ConfirmForm.resources

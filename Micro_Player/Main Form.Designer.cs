@@ -39,10 +39,11 @@
             this.button3 = new System.Windows.Forms.Button();
             this.currentPlaylistName = new System.Windows.Forms.Label();
             this.playerStoppedCheckerTimer = new System.Windows.Forms.Timer(this.components);
-            this.label1 = new System.Windows.Forms.Label();
+            this.playlistsLabel = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.createPlaylistButton = new System.Windows.Forms.Button();
             this.addSongFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.button4 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -150,24 +151,24 @@
             this.currentPlaylistName.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.currentPlaylistName.Location = new System.Drawing.Point(112, 267);
             this.currentPlaylistName.Name = "currentPlaylistName";
-            this.currentPlaylistName.Size = new System.Drawing.Size(65, 28);
+            this.currentPlaylistName.Size = new System.Drawing.Size(126, 28);
             this.currentPlaylistName.TabIndex = 4;
-            this.currentPlaylistName.Text = "label1";
+            this.currentPlaylistName.Text = "playlistName";
             // 
             // playerStoppedCheckerTimer
             // 
             this.playerStoppedCheckerTimer.Tick += new System.EventHandler(this.playerStoppedCheckerTimer_Tick);
             // 
-            // label1
+            // playlistsLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(113, 28);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Плейлисты";
+            this.playlistsLabel.AutoSize = true;
+            this.playlistsLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.playlistsLabel.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.playlistsLabel.Location = new System.Drawing.Point(12, 9);
+            this.playlistsLabel.Name = "playlistsLabel";
+            this.playlistsLabel.Size = new System.Drawing.Size(113, 28);
+            this.playlistsLabel.TabIndex = 6;
+            this.playlistsLabel.Text = "Плейлисты";
             // 
             // panel2
             // 
@@ -196,14 +197,25 @@
             // 
             this.addSongFileDialog.FileName = "openFileDialog1";
             // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(435, 705);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(94, 29);
+            this.button4.TabIndex = 7;
+            this.button4.Text = "button4";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
             this.ClientSize = new System.Drawing.Size(800, 746);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.playlistsLabel);
             this.Controls.Add(this.currentPlaylistName);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -241,5 +253,7 @@
         private Button createPlaylistButton;
         private Button addSongButton;
         private OpenFileDialog addSongFileDialog;
+        private Button button4;
+        private Label playlistsLabel;
     }
 }

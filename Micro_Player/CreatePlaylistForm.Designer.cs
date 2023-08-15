@@ -34,9 +34,11 @@
             // 
             // createPlaylistButton
             // 
-            this.createPlaylistButton.Location = new System.Drawing.Point(12, 45);
+            this.createPlaylistButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.createPlaylistButton.Location = new System.Drawing.Point(12, 47);
             this.createPlaylistButton.Name = "createPlaylistButton";
-            this.createPlaylistButton.Size = new System.Drawing.Size(308, 29);
+            this.createPlaylistButton.Size = new System.Drawing.Size(333, 29);
             this.createPlaylistButton.TabIndex = 0;
             this.createPlaylistButton.Text = "Создать плелист";
             this.createPlaylistButton.UseVisualStyleBackColor = true;
@@ -44,21 +46,24 @@
             // 
             // playlistNameTextBox
             // 
+            this.playlistNameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.playlistNameTextBox.Location = new System.Drawing.Point(12, 12);
             this.playlistNameTextBox.Name = "playlistNameTextBox";
-            this.playlistNameTextBox.Size = new System.Drawing.Size(308, 27);
+            this.playlistNameTextBox.Size = new System.Drawing.Size(333, 27);
             this.playlistNameTextBox.TabIndex = 1;
             // 
             // CreatePlaylistForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(332, 90);
+            this.ClientSize = new System.Drawing.Size(357, 88);
             this.Controls.Add(this.playlistNameTextBox);
             this.Controls.Add(this.createPlaylistButton);
+            this.MinimumSize = new System.Drawing.Size(200, 135);
             this.Name = "CreatePlaylistForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Создание плейлисть";
+            this.Text = "Создание плейлиста";
             this.ResumeLayout(false);
             this.PerformLayout();
 

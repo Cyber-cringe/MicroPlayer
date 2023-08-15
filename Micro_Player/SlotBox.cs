@@ -59,7 +59,6 @@ namespace Micro_Player
             {
                 Slot slot = new Slot(element);
                 slotList.Add(slot);
-
                 Subscribe(slot);
             }
         }
@@ -119,6 +118,9 @@ namespace Micro_Player
             if (newSelectedSlot == null) return;
             selectedSlot = newSelectedSlot;
         }
+
+        //Количество слотов
+        public int GetSlotCount() => Controls.Count;
 
         //-----ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ-----
         //если нажата кнопка "активировать" на любом из слотов
@@ -207,6 +209,5 @@ namespace Micro_Player
                 slot.Dispose();
             }
         }
-
     }
 }

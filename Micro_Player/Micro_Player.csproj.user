@@ -10,6 +10,9 @@
     <Compile Update="AddSongForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="ConfirmForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Main Form.cs">
       <SubType>Form</SubType>
     </Compile>
