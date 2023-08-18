@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -22,8 +23,8 @@ namespace Micro_Player
         public Button DeleteSlotButton { get => deleteSlotButton; }
         public Button AdditionalActionButton { get => additionalActionButton; }
         public Label NameLabel { get => nameLabel; }
-
-        public event EventHandler? slotSwitched;//события нажатия кнопки активации
+        
+        public event EventHandler? slotSwitched;//событие нажатия кнопки активации
         public event EventHandler? slotDeleted;//событие нажатия кнопки удаления
         public event EventHandler? additionalAction;//событие нажатия на кнопку дополнительного действия
 

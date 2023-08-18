@@ -97,14 +97,15 @@ namespace Micro_Player
                 //настройки слота
                 slot.Size = new Size(750, 50);
                 slot.BackColor = Color.Peru;
-                slot.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+                //slot.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
                 //настройки кнопки активации
+                slot.ActivateSlotButton.FlatAppearance.BorderSize = 0;
                 slot.ActivateSlotButton.Location = new Point(250, 10);
                 slot.ActivateSlotButton.Size = new Size(110, 35);
                 slot.ActivateSlotButton.Text = "▶";
                 slot.ActivateSlotButton.ForeColor = Color.Peru;
-                slot.ActivateSlotButton.FlatStyle = FlatStyle.Popup;
-                slot.ActivateSlotButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+                slot.ActivateSlotButton.FlatStyle = FlatStyle.Flat;
+                //slot.ActivateSlotButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
                 //настройки кнопки удаления
                 slot.DeleteSlotButton.Location = new Point(370, 10);
                 slot.DeleteSlotButton.Size = new Size(110, 35);
@@ -112,7 +113,7 @@ namespace Micro_Player
                 slot.DeleteSlotButton.BackColor = Color.Red;
                 slot.DeleteSlotButton.ForeColor = Color.Black;
                 slot.DeleteSlotButton.FlatStyle = FlatStyle.Popup;
-                slot.DeleteSlotButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+                //slot.DeleteSlotButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
                 //настройки кнопки дополнительного действия (добавить музыку в плейлист)
                 slot.AdditionalActionButton.Location = new Point(490, 10);
                 slot.AdditionalActionButton.Size = new Size(110, 35);
@@ -120,10 +121,10 @@ namespace Micro_Player
                 slot.AdditionalActionButton.BackColor = Color.Green;
                 slot.AdditionalActionButton.ForeColor = Color.Black;
                 slot.AdditionalActionButton.FlatStyle = FlatStyle.Popup;
-                slot.AdditionalActionButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+                //slot.AdditionalActionButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
                 //настройки label
                 slot.NameLabel.Location = new Point(10, 10);
-                slot.NameLabel.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                //slot.NameLabel.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             });
         }
 
@@ -146,13 +147,13 @@ namespace Micro_Player
             string MusicFilePath = playlistPath + playlistMusicFile;
             if (File.Exists(MusicFilePath))
             {
-                List<string> musicList = GetPathsListFromMusicFile(MusicFilePath).ToList();
-                musicList.Reverse();
-                UpdateMusicBox(musicList.ToArray());
+                var musicList = GetPathsListFromMusicFile(MusicFilePath);
+                Array.Reverse(musicList);
+                UpdateMusicBox(musicList);
                 return;
             }
             MessageBox.Show("Невозможно получить музыку из плейлиста.");
-            musicBox.ClearAll();
+            musicBox.ClearPanel();
         }
 
         //обработчик события смены плейлиста
@@ -325,7 +326,7 @@ namespace Micro_Player
         private string[] GetPathsListFromMusicFile(string musicFilePath)
         {
             string[] playlistMusic = File.ReadAllLines(musicFilePath);
-            playlistMusic = playlistMusic.Where(File.Exists).ToArray();
+            playlistMusic =playlistMusic.Where(File.Exists).ToArray();
             File.WriteAllLines(musicFilePath, playlistMusic);
             return playlistMusic;
         }

@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
 using WMPLib;
@@ -96,8 +97,10 @@ namespace Micro_Player
 
         private void button4_Click(object sender, EventArgs e)
         {
-            //GC.Collect();
+            MessageBox.Show(musicBox.GetSlotCount().ToString());
+            GC.Collect();
         }
+
     }
 
 }
