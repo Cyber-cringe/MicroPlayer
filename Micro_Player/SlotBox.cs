@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Micro_Player
 {
-    public class SlotBox: Panel
+    public class SlotBox:Panel
     {
         //private System.ComponentModel.IContainer components;
 
@@ -20,22 +20,19 @@ namespace Micro_Player
             set
             {
                 if(value == null)
-                {
                     selectedSlot = null;
-                }
                 else if (slotList != null && slotList.Contains(value))
-                {
                     selectedSlot = value;
-                }
             }
         }
 
-        [Description("событие нажатия кнопки активации любого из слотов")]
+        [Description("Событие активации любого из слотов.")]
         public event EventHandler<SlotBoxEventArgs>? SelectedSlotChanged; //событие активации любого слота из списка
-        [Description("событие нажатия кнопки удаления любого из слотов")]
+        [Description("Событие удаления любого из слотов.")]
         public event EventHandler<SlotBoxEventArgs>? DeletedSlotSelected; //событие удаление любого слота из списка
-        [Description("событие нажатия кнопки дополнительного любого из слотов")]
+        [Description("Событие дополнительного действия любого из слотов.")]
         public event EventHandler<SlotBoxEventArgs>? AdditionalActionInvoke; //событие удаление любого слота из списка
+
 
         public SlotBox()
         {
@@ -59,7 +56,7 @@ namespace Micro_Player
         //Добавление в список слотов с соответствующими пазами
         public void SetData(string[] slotBoxElements)
         {
-            ClearPanel();
+            ClearAll();
             if (slotBoxElements == null) return;
             slotList = new List<Slot>(slotBoxElements.Length);
             foreach (string element in slotBoxElements)
@@ -206,7 +203,7 @@ namespace Micro_Player
             return curentIndex.Value - 1;
         }
 
-        public void ClearPanel()
+        public void ClearAll()
         {
             if (slotList == null) return;
             selectedSlot = null;

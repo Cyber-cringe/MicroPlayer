@@ -24,7 +24,7 @@ namespace Micro_Player
         public Button AdditionalActionButton { get => additionalActionButton; }
         public Label NameLabel { get => nameLabel; }
         
-        public event EventHandler? slotSwitched;//событие нажатия кнопки активации
+        public event EventHandler? slotSwitched;//события нажатия кнопки активации
         public event EventHandler? slotDeleted;//событие нажатия кнопки удаления
         public event EventHandler? additionalAction;//событие нажатия на кнопку дополнительного действия
 
