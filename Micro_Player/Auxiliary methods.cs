@@ -16,6 +16,7 @@ namespace Micro_Player
         private const string musicDir = rootDir + @"\Music";
         private const string playlistsDir = rootDir + @"\Playlists";
         private const string playlistMusicFile = @"\Play List Music.txt";
+        private const string playlistImage = @"\Screensaver.png";
 
         WindowsMediaPlayer player = new WindowsMediaPlayer();
 
@@ -43,100 +44,58 @@ namespace Micro_Player
             UpdateMusicBox(music);
         }
 
-        //обработчик события смены трека
-        private void MusicBoxSelectedSlotChangedEventHandler(object? sender, SlotBoxEventArgs e)
-        {
-            if (!playerStoppedCheckerTimer.Enabled) 
-                playerStoppedCheckerTimer.Start();
-            Slot activatedSlot = e.slot;
-            TrySwitchSongSlots(activatedSlot);
-        }
-
-        //обработчик события удаления трека
-        private void MusicBoxDeletedSlotSelectedEventHandler(object? sender, SlotBoxEventArgs e)
-        {
-            Slot activatedSlot= e.slot;
-            string songName = e.slot.name;
-            ConfirmForm confirmForm = new ConfirmForm(ObjectTypes.Трек, songName);
-
-            if(currentPlaylistSlot == null)
-            {
-                confirmForm.SubscribeToConfirmButtonClick((sender, e) =>
-                {
-                    DeleteSongFromMusicDir(activatedSlot.path);
-                    ShowAllMusic();
-                });
-            }
-            else
-            {
-                confirmForm.SubscribeToConfirmButtonClick((sender, e) =>
-                {
-                    DeleteSongFromPlaylistMusicFile(currentPlaylistSlot.path, activatedSlot.path);
-                    ShowMusicInPlaylist(currentPlaylistSlot.path);
-                });
-            }
-            confirmForm.ShowDialog();
-        }
-
-        //Обаботчик события нажатия кнопки дополнительного действия слота трека
-        private void MusicBoxAdditionalActionInvokeEventHandler(object? sender, SlotBoxEventArgs e)
-        {
-            string songPath = e.slot.path;
-            List<string> fullplaylistNames = new List<string>(Directory.GetDirectories(playlistsDir));
-            fullplaylistNames.Remove(currentPlaylistSlot?.path);
-            string[]? playlistNames = new DirectoryWorker().GetDirNames(fullplaylistNames.ToArray());
-            AddSongForm addSongForm = new AddSongForm(this, playlistNames, songPath);
-            addSongForm.ShowDialog();
-        }
-
         //визуальная настройка слотов музыки
         private void SetVisualToMusicBox()
         {
-            musicBox.GlobalVisualizationSetup((slot) =>
+            foreach(Slot slot in musicBox)
             {
                 //настройки слота
-                slot.Size = new Size(750, 50);
-                slot.BackColor = Color.Peru;
-                slot.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+                slot.Size = new Size(775, 50);
+                slot.BackColor = Color.FromArgb(55, 55, 55);
+                slot.Anchor = AnchorStyles.Left | AnchorStyles.Top;
+                slot.BorderStyle = BorderStyle.FixedSingle;
                 //настройки кнопки активации
-                slot.ActivateSlotButton.Location = new Point(250, 10);
-                slot.ActivateSlotButton.Size = new Size(110, 35);
+                slot.ActivateSlotButton.Location = new Point(10, 7);
+                slot.ActivateSlotButton.Size = new Size(50, 35);
                 slot.ActivateSlotButton.Text = "▶";
-                slot.ActivateSlotButton.ForeColor = Color.Peru;
+                slot.ActivateSlotButton.ForeColor = Color.FromArgb(190, 190, 190);
+                slot.ActivateSlotButton.BackColor = Color.FromArgb(27, 27, 27);
                 slot.ActivateSlotButton.FlatStyle = FlatStyle.Popup;
                 slot.ActivateSlotButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
                 //настройки кнопки удаления
-                slot.DeleteSlotButton.Location = new Point(370, 10);
-                slot.DeleteSlotButton.Size = new Size(110, 35);
-                slot.DeleteSlotButton.Text = "Удалить";
-                slot.DeleteSlotButton.BackColor = Color.Red;
-                slot.DeleteSlotButton.ForeColor = Color.Black;
+                slot.DeleteSlotButton.Location = new Point(715, 7);
+                slot.DeleteSlotButton.Size = new Size(50, 35);
+                slot.DeleteSlotButton.Text = "🗑";
+                slot.DeleteSlotButton.BackColor = Color.FromArgb(27, 27, 27);
+                slot.DeleteSlotButton.ForeColor = Color.Red;
                 slot.DeleteSlotButton.FlatStyle = FlatStyle.Popup;
                 slot.DeleteSlotButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
                 //настройки кнопки дополнительного действия (добавить музыку в плейлист)
-                slot.AdditionalActionButton.Location = new Point(490, 10);
-                slot.AdditionalActionButton.Size = new Size(110, 35);
-                slot.AdditionalActionButton.Text = "Добавить";
-                slot.AdditionalActionButton.BackColor = Color.Green;
-                slot.AdditionalActionButton.ForeColor = Color.Black;
+                slot.AdditionalActionButton.Location = new Point(655, 7);
+                slot.AdditionalActionButton.Size = new Size(50, 35);
+                slot.AdditionalActionButton.Text = "➕";
+                slot.AdditionalActionButton.BackColor = Color.FromArgb(27, 27, 27);
+                slot.AdditionalActionButton.ForeColor = Color.Green;
                 slot.AdditionalActionButton.FlatStyle = FlatStyle.Popup;
                 slot.AdditionalActionButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
                 //настройки label
-                slot.NameLabel.Location = new Point(10, 10);
+                slot.NameLabel.Location = new Point(70, 10);
                 slot.NameLabel.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-            });
+                slot.NameLabel.ForeColor = Color.FromArgb(190, 190, 190);
+            }
         }
 
         //-----ПЛЕЙЛИСТЫ-----
-
         //получаем список плейлистов
         private void ShowPlaylists()
         {
             string[]? data = Directory.GetDirectories(playlistsDir);
             playlistsBox.SetData(data);
             SetVisualToPlaylistsBox();
-            playlistsBox.ShowSlots(10, 10, true);
+            playlistsBox.ShowSlots();
             SetVisualToPlaylistsBox();
+            TryFindCurrentPlaylistInPlayListsBox();
+            ShowPlaylistImages();
         }
 
         //отображает музыку плейлиста (из файла) 
@@ -152,56 +111,64 @@ namespace Micro_Player
                 return;
             }
             MessageBox.Show("Невозможно получить музыку из плейлиста.");
-            musicBox.ClearAll();
-        }
-
-        //обработчик события смены плейлиста
-        private void PlayListsBoxSelectedSlotChangedEventHandler(object? sender, SlotBoxEventArgs e)
-        {
-            Slot activatedSlot = e.slot;
-            TrySwitchPlaylistSlots(activatedSlot);
-            addSongButton.Enabled = false;
-            currentPlaylistName.Text = currentPlaylistSlot?.name;
-        }
-
-        //обработчик события удаления плейлиста
-        private void PlaylistsBoxDeletedSlotSelectedEventHandler(object? sender, SlotBoxEventArgs e)
-        {
-            Slot activatedSlot = e.slot;
-            string playlistName = activatedSlot.name;
-            ConfirmForm confirmForm = new ConfirmForm(ObjectTypes.Плейлист, playlistName);
-            confirmForm.SubscribeToConfirmButtonClick((sender, e) =>
-            {
-                DeletePlaylist(activatedSlot.path);
-                ShowPlaylists();
-            });
-            confirmForm.ShowDialog();
+            musicBox.ClearBox();
         }
 
         //визуальная настройка слотов playlistBox
         private void SetVisualToPlaylistsBox()
         {
-            playlistsBox.GlobalVisualizationSetup((slot) =>
+            foreach(Slot slot in playlistsBox)
             {
-                //настройки слота
-                slot.Size = new Size(170,170);
-                slot.BackColor = Color.Peru;
+                slot.Size = new Size(170, 170);
+                slot.BackColor = Color.FromArgb(55, 55, 55);
+                slot.BorderStyle = BorderStyle.FixedSingle;
                 //настройки кнопки активации
-                slot.ActivateSlotButton.Location = new Point(10,45);
-                slot.ActivateSlotButton.Size = new Size(150,35);
-                slot.ActivateSlotButton.Text = "Открыть";
-                slot.ActivateSlotButton.ForeColor= Color.Peru;
+                slot.ActivateSlotButton.Location = new Point(45, 10);
+                slot.ActivateSlotButton.Size = new Size(35, 35);
+                slot.ActivateSlotButton.Text = "♫";
+                slot.ActivateSlotButton.BackColor = Color.FromArgb(55, 55, 55);
+                slot.ActivateSlotButton.ForeColor = Color.White;
                 slot.ActivateSlotButton.FlatStyle = FlatStyle.Popup;
                 //настройки кнопки удаления
-                slot.DeleteSlotButton.Location = new Point(10,90);
-                slot.DeleteSlotButton.Size = new Size(150,35);
-                slot.DeleteSlotButton.Text = "Удалить";
-                slot.DeleteSlotButton.BackColor= Color.Red;
-                slot.DeleteSlotButton.ForeColor = Color.Black;
+                slot.DeleteSlotButton.Location = new Point(125, 10);
+                slot.DeleteSlotButton.Size = new Size(35, 35);
+                slot.DeleteSlotButton.Text = "🗑️";
+                slot.DeleteSlotButton.BackColor = Color.FromArgb(55, 55, 55);
+                slot.DeleteSlotButton.ForeColor = Color.Red;
                 slot.DeleteSlotButton.FlatStyle = FlatStyle.Popup;
+                //настройки кнопки дополнительного действия (добавить музыку в плейлист)
+                slot.AdditionalActionButton.Location = new Point(85, 10);
+                slot.AdditionalActionButton.Size = new Size(35, 35);
+                slot.AdditionalActionButton.Text = "🖌";
+                slot.AdditionalActionButton.BackColor = Color.FromArgb(55, 55, 55);
+                slot.AdditionalActionButton.ForeColor = Color.White;
+                slot.AdditionalActionButton.FlatStyle = FlatStyle.Popup;
+                slot.AdditionalActionButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
                 //настройки label
-                slot.NameLabel.Location = new Point(10, 10);
+                slot.NameLabel.Location = new Point(5, 140);
+                slot.NameLabel.ForeColor = Color.FromArgb(190, 190, 190);
+                slot.Font = new Font("Arial", 12, FontStyle.Regular);
+                //настройка pictureBox
+                slot.SlotPicture.Size = new Size(160, 130);
+                slot.SlotPicture.Location = new Point(5, 5);
+                slot.SlotPicture.BackColor = Color.FromArgb(27, 27, 27);
+                slot.SlotPicture.SizeMode = PictureBoxSizeMode.Zoom;
+                slot.Controls.Add(slot.SlotPicture);
+            }
+        }
+
+        //асинхронно загружаем заставки плейлистов в соответствующие пикчербоксы
+        private async void ShowPlaylistImages()
+        {
+            Task setImagesTask = Task.Run(() =>
+            {
+                foreach (Slot slot in playlistsBox)
+                {
+                    try {slot.SlotPicture.Image = new Bitmap($"{slot.path}{playlistImage}");}
+                    catch { }
+                }
             });
+            await setImagesTask;
         }
 
         //-----ПЛЕЕР----
@@ -221,15 +188,36 @@ namespace Micro_Player
             else if (player.playState == WMPPlayState.wmppsPaused
                     || player.playState == WMPPlayState.wmppsStopped)
                 player.controls.play();
+            
         }
 
-        //обработчик события смены трека в плеере
-        private void CurrentSongChangeEventHandler(object Item)
+        //обработчики события смены трека в плеере
+        private void CurrentItemChangeEventHandler(object Item)
         {
             if (previousSongSlot != null)
                 SetPauseText(previousSongSlot.ActivateSlotButton);
             if (currentSongSlot != null)
+            {
                 SetPlayText(currentSongSlot.ActivateSlotButton);
+                SetPlayText(playSongButton);
+                currentSongName.Text = currentSongSlot.name;
+                speedComboBox.SelectedIndex = 3;//ставим скорость воспроизведения x1
+            }
+        }
+
+        private void CurrentMediaChangeEventHandler(object Item)
+        {
+            songTimeTrackBar.Maximum = (int)player.currentMedia.duration;
+            songDuration.Text = player.currentMedia.durationString;
+            if (!songTimer.Enabled)
+                songTimer.Start();
+        }
+
+        //обработчик события смены статуса плеера
+        private void PlayerStatusChangeEventHandler()
+        {
+            ChangePlayButtonState(currentSongSlot?.ActivateSlotButton);
+            ChangePlayButtonState(playSongButton);
         }
 
         //-----ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ-----
@@ -274,16 +262,16 @@ namespace Micro_Player
                 currentPlaylistSlot.DeleteSlotButton.Enabled = true;
             }
             activatedSlot.DeleteSlotButton.Enabled = false;
-            ShowMusicInPlaylist(activatedSlot.path);
             currentPlaylistSlot = activatedSlot;
+            ShowMusicInPlaylist(currentPlaylistSlot.path);
         }
 
         //проверяем, есть ли текущий слот трека в новом плейлисте,
         //если да, то активируем слот
         private void TryFindAndSwitchCurrentSlotInPlaylist()
         {
-            musicBox.FindAndSetNewSelectedSlot((slot) => slot.path == currentSongSlot?.path);
-            Slot? selectedSlotInMusicBox = musicBox.SelectedSlot;
+            musicBox.FindAndSetNewActiveSlot((slot) => slot.path == currentSongSlot?.path);
+            Slot? selectedSlotInMusicBox = musicBox.ActiveSlot;
             if (selectedSlotInMusicBox == null) return;
             selectedSlotInMusicBox.ActivateSlotButton.Text = currentSongSlot?.ActivateSlotButton.Text;
             currentSongSlot = selectedSlotInMusicBox;
@@ -330,12 +318,29 @@ namespace Micro_Player
             return playlistMusic;
         }
 
-        //настраиваем диалоговое окно выбора mp3 файла
-        private void SetUpAddSongFileDialog()
+        //пытаемся найти текущий плейлист в обновленном playListsBox
+        private void TryFindCurrentPlaylistInPlayListsBox()
         {
-            addSongFileDialog.Filter = "MP3 files|*.mp3";
-            addSongFileDialog.FileName = "";
-            addSongFileDialog.Title = "Выберите песню";
+            if (currentPlaylistSlot == null) return;
+            foreach (Slot slot in playlistsBox)
+            {
+                if (slot.path == currentPlaylistSlot.path)
+                {
+                    slot.DeleteSlotButton.Enabled = false;
+                    currentPlaylistSlot = slot;
+                    return;
+                }
+            }
+        }
+
+        //настраиваем комбобокс скорости трека
+        public void SetStartSpeedComboBoxSettings(double[] speed)
+        {
+            foreach (var value in speed)
+            {
+                speedComboBox.Items.Add(value);
+            }
+            speedComboBox.SelectedIndex = 3;
         }
 
         //-----МЕТОДЫ ДЛЯ РАБОЬТЫ С ФОРМАМИ-----
@@ -346,12 +351,20 @@ namespace Micro_Player
             string playlistPath = playlistsDir + $@"\{playlistName}";
             if (!Directory.Exists(playlistPath))
             {
-                Directory.CreateDirectory(playlistPath);
-                CreateMusicFileInPlylistDir(playlistPath);
+                try
+                {
+                    Directory.CreateDirectory(playlistPath);
+                    CreateMusicFileInPlylistDir(playlistPath);
+                }
+                catch
+                {
+                    MessageBox.Show("При создании плейлиста произошла ошибка.");
+                    return;
+                }
                 ShowPlaylists();
                 CreationIsCompleted = true;
             }
-            else MessageBox.Show("Плейлист с таким названием уже существует");
+            else MessageBox.Show(text:"Плейлист с таким названием уже существует", caption: "Ошибка");
         }
 
         //добавляем выбранный трек в файл с музыкой плейлиста
@@ -368,7 +381,7 @@ namespace Micro_Player
         //создание файла для хранения музыки в плейлисте
         private void CreateMusicFileInPlylistDir(string? playlistPath)
         {
-            if (String.IsNullOrEmpty(playlistPath)) return;
+            if (string.IsNullOrEmpty(playlistPath)) return;
             string musicFilePath = playlistPath + playlistMusicFile;
             if (Directory.Exists(playlistPath))
             {
@@ -390,7 +403,7 @@ namespace Micro_Player
         //Удаляем мп3 файл из файла плейлиста
         private void DeleteSongFromPlaylistMusicFile(string? playlistPath, string? songPath)
         {
-            if (String.IsNullOrEmpty(playlistPath) || String.IsNullOrEmpty(songPath)) return;
+            if (string.IsNullOrEmpty(playlistPath) || string.IsNullOrEmpty(songPath)) return;
             string musicFilePath = playlistPath + playlistMusicFile;
             if (!File.Exists(musicFilePath)) return;
             List<string> playlistMusic = File.ReadAllLines(musicFilePath).ToList();
@@ -401,11 +414,35 @@ namespace Micro_Player
         //Удаляем плейлист
         private void DeletePlaylist(string playlistPath)
         {
-            if (String.IsNullOrEmpty(playlistPath)) return;
+            if (string.IsNullOrEmpty(playlistPath)) return;
             if (Directory.Exists(playlistPath))
             {
                 Directory.Delete(playlistPath, true);
             }
+        }
+
+        //-----ФИЧИ-----
+        private void CheckDate()
+        {
+                if ((DateTime.Today.Day == 31 && DateTime.Today.Month == 10) || //хэллоуин
+                    (DateTime.Today.Day == 2 && DateTime.Today.Month == 9))
+                {
+                    holidaySymbolLabel.Left += 15;
+                    holidaySymbolLabel.Text = "🎃";
+                    holidaySymbolLabel.ForeColor = Color.OrangeRed;
+                    companyName.ForeColor = Color.OrangeRed;
+                    Font holidayFont = new Font("Curlz MT", 12);
+                    companyName.Font = holidayFont;
+                }
+                else if ((DateTime.Today.Day == 31 && DateTime.Today.Month == 12) || //новый год
+                         (DateTime.Today.Day == 1 && DateTime.Today.Month == 1))
+                {
+                    holidaySymbolLabel.ForeColor = Color.Green;
+                    holidaySymbolLabel.Text = "🎄";
+                    companyName.ForeColor = Color.Red;
+                    Font holidayFont = new Font("Jokerman", 12);
+                    companyName.Font = holidayFont;
+                }
         }
 
     }

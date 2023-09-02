@@ -1,0 +1,6 @@
+D:\Репозитории\Micro player\Micro_Player\bin\Release\net7.0-windows\publish\Micro_Player.exe
+D:\Репозитории\Micro player\Micro_Player\bin\Release\net7.0-windows\publish\Micro_Player.dll
+D:\Репозитории\Micro player\Micro_Player\bin\Release\net7.0-windows\publish\Micro_Player.deps.json
+D:\Репозитории\Micro player\Micro_Player\bin\Release\net7.0-windows\publish\Micro_Player.runtimeconfig.json
+D:\Репозитории\Micro player\Micro_Player\bin\Release\net7.0-windows\publish\Micro_Player.pdb
+D:\Репозитории\Micro player\Micro_Player\bin\Release\net7.0-windows\publish\taglib-sharp.dll

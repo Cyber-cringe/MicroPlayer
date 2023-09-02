@@ -1,38 +1,67 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Micro_Player
 {
-    public class SlotBox:Panel
+    public class SlotBox:Panel, IEnumerable
     {
-        //private System.ComponentModel.IContainer components;
-
-        //Поля
+        //-----Поля-----
         private List<Slot>? slotList;
-        private Slot? selectedSlot;
-        public Slot? SelectedSlot
+        private Slot? activeSlot;
+        private int xDistance = 10;
+        private int yDistance = 10;
+
+        ~SlotBox() => MessageBox.Show($"слотбокс {Name} удален");
+        
+        //-----Свойства-----
+
+        [Category("Слоты")] [Description("Определяет текущий активный слот. При этом не вызывается соответствующее событие")]
+        public Slot? ActiveSlot
         {
-            get => selectedSlot;
+            get => activeSlot;
             set
             {
                 if(value == null)
-                    selectedSlot = null;
+                    activeSlot = null;
                 else if (slotList != null && slotList.Contains(value))
-                    selectedSlot = value;
+                    activeSlot = value;
             }
         }
 
-        [Description("Событие активации любого из слотов.")]
-        public event EventHandler<SlotBoxEventArgs>? SelectedSlotChanged; //событие активации любого слота из списка
-        [Description("Событие удаления любого из слотов.")]
-        public event EventHandler<SlotBoxEventArgs>? DeletedSlotSelected; //событие удаление любого слота из списка
-        [Description("Событие дополнительного действия любого из слотов.")]
-        public event EventHandler<SlotBoxEventArgs>? AdditionalActionInvoke; //событие удаление любого слота из списка
+        [Category("Слоты")] [Description("Расстояние между слотами по координате X.")]
+        public int XDistance
+        {
+            get => xDistance;
+            set => xDistance = Math.Abs(value);
+        }
 
+        [Category("Слоты")] [Description("Расстояние между слотами по координате Y.")]
+        public int YDistance
+        {
+            get => yDistance;
+            set => yDistance = Math.Abs(value);
+        }
+
+        [Category("Слоты")] [Description("Определяет, будут ли слоты распологаться горизонтально.")]
+        public bool Horisontal { get; set; }
+
+        //-----События-----
+        [Category("Состояние слотов")] [Description("Событие возникает, когда нажата кнопка активации любого из слотов, а также при вызове методов ActivateNextSlot(bool) и ActivatePreviousSlot(bool)")]
+        public event EventHandler<SlotBoxEventArgs>? SlotActivated; //событие активации любого слота из списка
+
+        [Category("Состояние слотов")] [Description("Событие возникает, когда нажата кнопка удаления любого из слотов.")]
+        public event EventHandler<SlotBoxEventArgs>? DeletedSlotSelected; //событие удаление любого слота из списка
+
+        [Category("Состояние слотов")] [Description("Событие возникает, когда нажата кнопка дополнительного действия любого из слотов.")]
+        public event EventHandler<SlotBoxEventArgs>? AdditionalActionInvoke; //событие удаление любого слота из списка
 
         public SlotBox()
         {
@@ -52,115 +81,136 @@ namespace Micro_Player
         }
 
         //-----ОСНОВНЫЕ МЕТОДЫ-----
+        //получаем перечислитель слотов слотбокса
+        public IEnumerator GetEnumerator() => slotList.GetEnumerator();
 
         //Добавление в список слотов с соответствующими пазами
         public void SetData(string[] slotBoxElements)
         {
-            ClearAll();
+            ClearBox();
             if (slotBoxElements == null) return;
             slotList = new List<Slot>(slotBoxElements.Length);
             foreach (string element in slotBoxElements)
             {
                 Slot slot = new Slot(element);
                 slotList.Add(slot);
-                Subscribe(slot);
+                SubscribeTo(slot);
             }
         }
 
         //настройка расположения слотов
-        public void ShowSlots(int XDistance = 10, int YDistance = 10, bool horisontal = false)
+        public void ShowSlots()
         {
             if (slotList == null) return;
-
-            if (horisontal)
-                ArrangeSlotsHorizontally(XDistance, YDistance);
+            if (Horisontal)
+                ArrangeSlotsHorizontally();
             else
-                ArrangeSlotsVertically(XDistance, YDistance);
+                ArrangeSlotsVertically();
         }
 
         //Активация следующего слота
-        public void ActivateNextSlot()
+        public void ActivateNextSlot(bool closure = false)
         {
-            if (slotList == null) return;
-            int? nextIndex = GetNextIndex(selectedSlot);
-            if (nextIndex == null) return;
-            selectedSlot = slotList[nextIndex.Value];
-            SelectedSlotChanged?.Invoke(this, new SlotBoxEventArgs(selectedSlot));
+            if (slotList == null || activeSlot == null) return;
+            int currentSlotIndex = slotList.IndexOf(activeSlot);
+            try
+            {
+                activeSlot = slotList[currentSlotIndex + 1];
+                SlotActivated?.Invoke(this, new SlotBoxEventArgs(activeSlot));
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                if (closure)
+                {
+                    activeSlot = slotList[0];
+                    SlotActivated?.Invoke(this, new SlotBoxEventArgs(activeSlot));
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         //Активация предыдущего слота
-        public void ActivatePreviousSlot()
+        public void ActivatePreviousSlot(bool closure = false)
         {
-            if (slotList == null) return;
-            int? previousIndex = GetPreviousIndex(selectedSlot);
-            if (previousIndex == null) return;
-            selectedSlot = slotList![previousIndex.Value];
-            SelectedSlotChanged?.Invoke(this, new SlotBoxEventArgs(selectedSlot));
-        }
-
-        //Передаем в метод делегат, который настраивает слот
-        public void GlobalVisualizationSetup(Action<Slot> SlotVisualSetup)
-        {
-            if (slotList == null) return;
-            foreach(Slot slot in slotList)
+            if (slotList == null || activeSlot == null) return;
+            int currentSlotIndex = slotList.IndexOf(activeSlot);
+            try
             {
-                SlotVisualSetup(slot);
+                activeSlot = slotList[currentSlotIndex - 1];
+                SlotActivated?.Invoke(this, new SlotBoxEventArgs(activeSlot));
             }
+            catch(ArgumentOutOfRangeException)
+            {
+                if (closure)
+                {
+                    activeSlot = slotList[slotList.Count - 1];
+                    SlotActivated?.Invoke(this, new SlotBoxEventArgs(activeSlot));
+                }
+            }
+            catch(Exception ex) {MessageBox.Show(ex.Message);}
         }
 
-        public Slot? FindSlot(Predicate<Slot> pred)
+        //удаление слота
+        public void DeleteSlot(Slot? slot)
         {
-            if (slotList == null) return null;
-            Slot? slot =  slotList.Find(pred);
-            return slot;
+            if (slotList == null || slot == null) return;
+            if (Controls.Contains(slot))
+            {
+                int index = Controls.IndexOf(slot);
+                Point slotPosition = slot.Location;
+                Controls.Remove(slot);
+                slot.Dispose();
+                MoveSlots(slotPosition, index);
+            }
+            slotList.Remove(slot);
         }
 
         //смена активного слота без вызова события
-        public void FindAndSetNewSelectedSlot(Predicate<Slot> pred)
+        public void FindAndSetNewActiveSlot(Predicate<Slot> pred)
         {
-            Slot? newSelectedSlot = FindSlot(pred);
-            if (newSelectedSlot == null) return;
-            selectedSlot = newSelectedSlot;
+            Slot? newActiveSlot = slotList?.Find(pred);
+            if (newActiveSlot != null)
+                activeSlot = newActiveSlot;
         }
 
         //Количество слотов
         public int GetSlotCount() => Controls.Count;
 
         //-----ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ-----
-        //если нажата кнопка "активировать" на любом из слотов
+        //обработчик события нажатия кнопки "активировать" на любом из слотов
         private void SlotSwitchedHandler(object? sender, EventArgs e)
         {
-            if (sender is Slot selectedSlot) 
+            if (sender is Button button && button.Parent is Slot activatedSlot) 
             {
-                this.selectedSlot = selectedSlot;
-                SelectedSlotChanged?.Invoke(this, new SlotBoxEventArgs(selectedSlot));
+                this.activeSlot = activatedSlot;
+                SlotActivated?.Invoke(this, new SlotBoxEventArgs(activatedSlot));
             }
         }
 
-        //если нажата кнопка "удалить" на любом из слотов
+        //обработчик события нажатия кнопки "удалить" на любом из слотов
         private void SlotDeletedHandler(object? sender, EventArgs e)
         {
-            if (sender is Slot slotForDeletion)
+            if (sender is Button button && button.Parent is Slot slotForDeletion)
                 DeletedSlotSelected?.Invoke(this, new SlotBoxEventArgs(slotForDeletion));
         }
 
-        //если нажата кнопка дополнительного действия на любом из слотов
+        //обработчик события нажатия кнопки дополнительного действия на любом из слотов
         private void AdditionalActionInvokeHandler(object? sender, EventArgs e)
         {
-            if (sender is Slot AdditionalActionSlot)
+            if (sender is Button button && button.Parent is Slot AdditionalActionSlot)
                 AdditionalActionInvoke?.Invoke(this, new SlotBoxEventArgs(AdditionalActionSlot));
         }
 
         //Подписываем методы на соответствующие события слота
-        private void Subscribe(Slot slot)
+        private void SubscribeTo(Slot slot)
         {
-            slot.slotSwitched += SlotSwitchedHandler;
-            slot.slotDeleted += SlotDeletedHandler;
-            slot.additionalAction += AdditionalActionInvokeHandler;
+            slot.ActivateSlotButton.Click += SlotSwitchedHandler;
+            slot.DeleteSlotButton.Click += SlotDeletedHandler;
+            slot.AdditionalActionButton.Click += AdditionalActionInvokeHandler;
         }
 
         //метод для вертикального размещения слотов
-        private void ArrangeSlotsVertically(int XDistance = 10, int YDistance = 10)
+        private void ArrangeSlotsVertically()
         {
             if (slotList == null) return;
             for (int i = 0; i < slotList.Count; i++)
@@ -173,7 +223,7 @@ namespace Micro_Player
         }
 
         //метод для горизонтального размещения слотов
-        private void ArrangeSlotsHorizontally(int XDistance = 10, int YDistance = 10)
+        private void ArrangeSlotsHorizontally()
         {
             if (slotList == null) return;
             for (int i = 0; i < slotList.Count; i++)
@@ -185,33 +235,38 @@ namespace Micro_Player
             Controls.AddRange(slotList.ToArray());
         }
 
-        //получаем индекс следущего, после переданнрго в метод слота
-        private int? GetNextIndex(Slot? currentSlot)
+        //сдвигаем слоты влево или вверх после удаления одного из слотов
+        private void MoveSlots(Point startPosition, int startIndex)
         {
-            if (slotList == null || currentSlot == null) return null;
-            int? curentIndex = slotList.IndexOf(currentSlot);
-            if (curentIndex == null || curentIndex == slotList.Count - 1) return null;
-            return curentIndex.Value + 1;
+            if (Horisontal)
+            {
+                for (int i = startIndex; i < Controls.Count; i++)
+                {
+                    (Controls[i].Left, startPosition.X) = (startPosition.X, Controls[i].Left);
+                }
+            }
+            else
+            {
+                for (int i = startIndex; i < Controls.Count; i++)
+                {
+                    (Controls[i].Top, startPosition.Y) = (startPosition.Y, Controls[i].Top);
+                }
+            }
         }
 
-        //получаем индекс предыдущего, после переданнрго в метод слота
-        private int? GetPreviousIndex(Slot? currentSlot)
-        {
-            if (slotList == null || currentSlot == null) return null;
-            int? curentIndex = slotList.IndexOf(currentSlot);
-            if (curentIndex == null || curentIndex == 0) return null;
-            return curentIndex.Value - 1;
-        }
-
-        public void ClearAll()
+        //очистка панели, удаление слотов
+        public void ClearBox()
         {
             if (slotList == null) return;
-            selectedSlot = null;
+            activeSlot = null;
             foreach(var slot in slotList)
             {
                 this.Controls.Remove(slot);
                 slot.Dispose();
             }
+            slotList = null;
         }
+
     }
+
 }

@@ -33,7 +33,7 @@ namespace Micro_Player
             messageLabel.Text = message;
             if(this.Width < messageLabel.Width)
             {
-                this.Width = messageLabel.Width + 40;
+                this.Width = messageLabel.Width + 40;//40-случайлое значение
             }  
         }
 

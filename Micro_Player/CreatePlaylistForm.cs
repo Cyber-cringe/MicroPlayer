@@ -18,7 +18,7 @@ namespace Micro_Player
             InitializeComponent();
             this.mainForm = mainForm;
         }
-        //~CreatePlaylistForm() => MessageBox.Show("форма уничтожена");
+        //~CreatePlaylistForm() => MessageBox.Show("форма create уничтожена");
 
         private void createPlaylistButton_Click(object sender, EventArgs e)
         {

@@ -36,20 +36,27 @@
             // 
             this.createPlaylistButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.createPlaylistButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.createPlaylistButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.createPlaylistButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
             this.createPlaylistButton.Location = new System.Drawing.Point(12, 47);
             this.createPlaylistButton.Name = "createPlaylistButton";
             this.createPlaylistButton.Size = new System.Drawing.Size(333, 29);
             this.createPlaylistButton.TabIndex = 0;
             this.createPlaylistButton.Text = "Создать плелист";
-            this.createPlaylistButton.UseVisualStyleBackColor = true;
+            this.createPlaylistButton.UseVisualStyleBackColor = false;
             this.createPlaylistButton.Click += new System.EventHandler(this.createPlaylistButton_Click);
             // 
             // playlistNameTextBox
             // 
             this.playlistNameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.playlistNameTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
+            this.playlistNameTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.playlistNameTextBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(190)))), ((int)(((byte)(190)))), ((int)(((byte)(190)))));
             this.playlistNameTextBox.Location = new System.Drawing.Point(12, 12);
             this.playlistNameTextBox.Name = "playlistNameTextBox";
+            this.playlistNameTextBox.PlaceholderText = "Название плейлиста";
             this.playlistNameTextBox.Size = new System.Drawing.Size(333, 27);
             this.playlistNameTextBox.TabIndex = 1;
             // 
@@ -57,6 +64,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(27)))), ((int)(((byte)(27)))));
             this.ClientSize = new System.Drawing.Size(357, 88);
             this.Controls.Add(this.playlistNameTextBox);
             this.Controls.Add(this.createPlaylistButton);
