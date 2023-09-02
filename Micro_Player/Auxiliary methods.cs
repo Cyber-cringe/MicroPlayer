@@ -425,7 +425,7 @@ namespace Micro_Player
         private void CheckDate()
         {
                 if ((DateTime.Today.Day == 31 && DateTime.Today.Month == 10) || //хэллоуин
-                    (DateTime.Today.Day == 2 && DateTime.Today.Month == 9))
+                    (DateTime.Today.Day == 1 && DateTime.Today.Month == 11))
                 {
                     holidaySymbolLabel.Left += 15;
                     holidaySymbolLabel.Text = "🎃";
