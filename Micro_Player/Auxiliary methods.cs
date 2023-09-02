@@ -12,7 +12,7 @@ namespace Micro_Player
     public partial class MainForm
     {
         //директории приложения музыки и плейлистов
-        private const string rootDir = @"C:\Micro Player";
+        private const string rootDir = @"Player Data";
         private const string musicDir = rootDir + @"\Music";
         private const string playlistsDir = rootDir + @"\Playlists";
         private const string playlistMusicFile = @"\Play List Music.txt";
@@ -425,7 +425,7 @@ namespace Micro_Player
         private void CheckDate()
         {
                 if ((DateTime.Today.Day == 31 && DateTime.Today.Month == 10) || //хэллоуин
-                    (DateTime.Today.Day == 2 && DateTime.Today.Month == 9))
+                    (DateTime.Today.Day == 1 && DateTime.Today.Month == 11))
                 {
                     holidaySymbolLabel.Left += 15;
                     holidaySymbolLabel.Text = "🎃";

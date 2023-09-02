@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micro_Player", "Micro_Player.csproj", "{9352A848-5512-4F28-965D-6D1A261E1829}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Micro Player Installer", "..\Micro Player Installer\Micro Player Installer.vdproj", "{1E4D6965-9A83-4C89-9623-74CC822ACC7A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,8 @@ Global
 		{9352A848-5512-4F28-965D-6D1A261E1829}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9352A848-5512-4F28-965D-6D1A261E1829}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9352A848-5512-4F28-965D-6D1A261E1829}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E4D6965-9A83-4C89-9623-74CC822ACC7A}.Debug|Any CPU.ActiveCfg = Debug
+		{1E4D6965-9A83-4C89-9623-74CC822ACC7A}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
