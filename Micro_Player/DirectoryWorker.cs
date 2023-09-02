@@ -83,6 +83,20 @@ namespace Micro_Player
             return files;
         }
 
+        public string[]? GetDirNames(string[] files)
+        {
+            if (files == null || files.Length == 0) return null;
+            string[] names = new string[files.Length];
+            for (int i = 0; i < names.Length; i++)
+            {
+                if (Directory.Exists(files[i]))
+                    names[i] = Path.GetFileName(files[i]);
+                else
+                    names[i] = files[i];
+            }
+            return names;
+        }
+
     }
 }
 

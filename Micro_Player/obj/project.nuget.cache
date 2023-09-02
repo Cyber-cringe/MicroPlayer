@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "poVi33wR7ffv4JNlBz/qdJ1G0/7PrEH0SYdjE3WAb84VPGPn6NzKCTC42IHViawOWUb1eQfftJuBgDnMoXmUFg==",
+  "dgSpecHash": "aCiLt44N65C2g3W7ezKGWRj28fdJhnfNcDxs9H3utbsIe9CBNmGplpswUSuc72xGUhT86J8aFYwonyXx6o1Q+g==",
   "success": true,
   "projectFilePath": "D:\\Репозитории\\Micro player\\Micro_Player\\Micro_Player.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\HP\\.nuget\\packages\\taglib-sharp-netstandard2.0\\2.1.0\\taglib-sharp-netstandard2.0.2.1.0.nupkg.sha512"
+  ],
   "logs": []
 }

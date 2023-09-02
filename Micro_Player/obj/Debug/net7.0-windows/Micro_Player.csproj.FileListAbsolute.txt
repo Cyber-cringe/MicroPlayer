@@ -50,7 +50,6 @@ D:\Репозитории\Micro player\Micro_Player\bin\Debug\net7.0-windows\Mic
 D:\Репозитории\Micro player\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.csproj.AssemblyReference.cache
 D:\Репозитории\Micro player\Micro_Player\obj\Debug\net7.0-windows\Interop.WMPLib.dll
 D:\Репозитории\Micro player\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.csproj.ResolveComReference.cache
-D:\Репозитории\Micro player\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.Form1.resources
 D:\Репозитории\Micro player\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.Properties.Resources.resources
 D:\Репозитории\Micro player\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.Slot.resources
 D:\Репозитории\Micro player\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.SlotBox.resources
@@ -64,3 +63,36 @@ D:\Репозитории\Micro player\Micro_Player\obj\Debug\net7.0-windows\ref
 D:\Репозитории\Micro player\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.pdb
 D:\Репозитории\Micro player\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.genruntimeconfig.cache
 D:\Репозитории\Micro player\Micro_Player\obj\Debug\net7.0-windows\ref\Micro_Player.dll
+D:\Репозитории\Micro player\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.MainForm.resources
+D:\Репозитории\Micro player\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.CreatePlaylistForm.resources
+D:\Репозитории\Micro player\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.AddSongForm.resources
+D:\Репозитории\Micro player\Micro_Player\bin\Debug\net7.0-windows\taglib-sharp.dll
+D:\Репозитории\Micro player\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.csproj.CopyComplete
+D:\Репозитории\Micro player\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.ConfirmForm.resources
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\bin\Debug\net7.0-windows\Micro_Player.exe
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\bin\Debug\net7.0-windows\Micro_Player.deps.json
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\bin\Debug\net7.0-windows\Micro_Player.runtimeconfig.json
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\bin\Debug\net7.0-windows\Micro_Player.dll
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\bin\Debug\net7.0-windows\Micro_Player.pdb
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\bin\Debug\net7.0-windows\taglib-sharp.dll
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.csproj.AssemblyReference.cache
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\obj\Debug\net7.0-windows\Interop.WMPLib.dll
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.csproj.ResolveComReference.cache
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.AddSongForm.resources
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.ConfirmForm.resources
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.CreatePlaylistForm.resources
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.MainForm.resources
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.Properties.Resources.resources
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.Slot.resources
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.SlotBox.resources
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.csproj.GenerateResource.cache
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.AssemblyInfoInputs.cache
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.AssemblyInfo.cs
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.csproj.CoreCompileInputs.cache
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.csproj.CopyComplete
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.dll
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\obj\Debug\net7.0-windows\refint\Micro_Player.dll
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.pdb
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\obj\Debug\net7.0-windows\Micro_Player.genruntimeconfig.cache
+C:\Users\HP\Desktop\Новая папка (2)\MicroPlayer-Dev_Nikonov\Micro_Player\obj\Debug\net7.0-windows\ref\Micro_Player.dll
